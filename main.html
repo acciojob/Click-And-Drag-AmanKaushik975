@@ -36,6 +36,36 @@
 
 <script>
 //Your code goes here 
+	let isDragging = false;
+  let startPosition = 0;
+  let startScrollPosition = 0;
+
+  const container = document.querySelector('.container');
+
+  container.addEventListener('mousedown', (event) => {
+    isDragging = true;
+    startPosition = event.clientX;
+    startScrollPosition = container.scrollLeft;
+    container.style.cursor = 'grabbing';
+  });
+
+  container.addEventListener('mousemove', (event) => {
+    if (!isDragging) return;
+    const delta = event.clientX - startPosition;
+    container.scrollLeft = startScrollPosition - delta;
+  });
+
+  container.addEventListener('mouseup', () => {
+    isDragging = false;
+    container.style.cursor = 'grab';
+  });
+
+  container.addEventListener('mouseleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      container.style.cursor = 'grab';
+    }
+  });
 </script>
 
   </body>
